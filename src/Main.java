@@ -1,26 +1,83 @@
 //import transport.Bus;
+import Driver.DriverB;
+import Driver.DriverC;
+import Driver.DriverD;
 import transport.*;
 
 public class Main {
-    private static void printInfo(Transport<?> transport) {
-        System.out.println("водитель "+transport.getDriver().getFullName()+" управляет автомобилем "+transport.getBrand()+transport.getModel()+" и будет участвовать в заезде");
-    }
+//    private static void printInfo(Transport<?> transport) {
+//        System.out.println("водитель "+transport.getDriver().getFullName()+" управляет автомобилем "+transport.getBrand()+transport.getModel()+" и будет участвовать в заезде");
+//    }
 
     public static void main(String[] args) {
-        for (int i = 1; i <= 4; i++) {
-            DriverB driverB = new DriverB("Driver cat.B №" + i, true, 5 + i);
-            Car car = new Car("Car brand №" + i, " model №" + i, 3.5, driverB);
 
-            DriverD driverD = new DriverD("Driver cat.C №" + i, true, 5 + i);
-            Bus bus = new Bus("Bus brand №" + i, " model №" + i, 4.7, driverD);
+        Car ford = new Car("Ford", "12", 4.6, BodyType.BODY_TYPE_SEDAN);
+        Car bmbZ5 = new Car("BMB", "Z5", 5.2, BodyType.BODY_TYPE_CROSSOVER);
+        Car ladaXXX = new Car("Lada", "XXX", 4.1, BodyType.BODY_TYPE_STATION_WAGON);
+        System.out.println(ford);
+        System.out.println(bmbZ5);
+        System.out.println(ladaXXX);
+        System.out.println();
+        ford.pitStop();
+        bmbZ5.startMoving();
+        ladaXXX.finishMoving();
 
-            DriverC driverC = new DriverC("Driver cat.D №" + i, true, 5 + i);
-            Trucks truck = new Trucks("Truck brand №" + i, " model №" + i, 4.7, driverC);
+        System.out.println("-------------------------------------------------------------");
 
-            printInfo(car);
-            printInfo(bus);
-            printInfo(truck);
-        }
+        Trucks gaz = new Trucks("Gaz", "AAA", 1.4, LoadCapacity.LOAD_CAPACITY_N1);
+        Trucks yyy = new Trucks("YYY", "T6", 3.5, LoadCapacity.LOAD_CAPACITY_N2);
+        System.out.println(gaz);
+        System.out.println(yyy);
+        gaz.printType();
+        yyy.printType();
+        System.out.println();
+        gaz.pitStop();
+        yyy.startMoving();
+        yyy.finishMoving();
+
+        System.out.println("------------------------------------------------------------");
+
+        Bus paz = new Bus("PAZ", "school", 3.2, SeatsCapacity.SEATS_CAPACITY_MEDIUM);
+        Bus bus = new Bus("Bus", "XL", 3.6, SeatsCapacity.SEATS_CAPACITY_EXTREMELY_LARGE);
+        System.out.println(paz);
+        System.out.println(bus);
+        paz.printType();
+        bus.printType();
+        System.out.println();
+        paz.pitStop();
+        paz.startMoving();
+        paz.finishMoving();
+
+        System.out.println("-----------------------------------------");
+
+        DriverB alexey = new DriverB("Алексей", true, 10);
+        DriverC michael = new DriverC("Михаил", true, 15);
+        DriverD alex = new DriverD("Александр", true, 7);
+        System.out.println(alexey);
+        alexey.drive(ladaXXX);
+        alexey.startMoving();
+        System.out.println(michael);
+        michael.drive(yyy);
+        michael.refuel();
+        System.out.println(alex);
+        alex.drive(paz);
+        alex.stay();
+        System.out.println();
+
+
+//            DriverD driverD = new DriverD("Driver cat.C №" + i, true, 5 + i);
+//            Bus bus = new Bus("Bus brand №" + i, " model №" + i, 4.7, driverD);
+//
+//            DriverC driverC = new DriverC("Driver cat.D №" + i, true, 5 + i);
+//            Trucks truck = new Trucks("Truck brand №" + i, " model №" + i, 4.7, driverC);
+
+//            printInfo(car);
+//            printInfo(bus);
+//            printInfo(truck);
+
+
+
+    }
 
 
 
@@ -66,4 +123,3 @@ public class Main {
 
 
     }
-}

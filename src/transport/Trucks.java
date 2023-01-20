@@ -1,8 +1,40 @@
 package transport;
 
+import Driver.DriverC;
+
+import java.util.Objects;
+
 public class Trucks extends Transport <DriverC>{
-    public Trucks(String brand, String model, double engineVolume, DriverC driver) {
-        super(brand, model, engineVolume, driver);
+    private LoadCapacity loadCapacity;
+
+    public Trucks(String brand, String model, double engineVolume, LoadCapacity loadCapacity ) {
+        super(brand, model, engineVolume);
+        this.loadCapacity = loadCapacity;
+    }
+
+    public LoadCapacity getLoadCapacity() {
+        return loadCapacity;
+    }
+
+    public void setLoadCapacity(LoadCapacity loadCapacity) {
+        this.loadCapacity = loadCapacity;
+    }
+    public void printType() {
+        if (loadCapacity == null) {
+            System.out.println("Недостаточно данных о грузовике");
+        } else {
+
+            String loadCapacityLowerLimit = loadCapacity.getLoadCapacityLowerLimit() == null ? "" : " от " +
+                    loadCapacity.getLoadCapacityLowerLimit() + " тонн";
+            String loadCapacityUpperLimit = loadCapacity.getLoadCapacityUpperLimit() == null ? "" : " до " +
+                    loadCapacity.getLoadCapacityUpperLimit() + " тонн";
+            System.out.println("Грузоподемность грузовика " + getBrand() + " " + getModel() + ": " + loadCapacityLowerLimit + loadCapacityUpperLimit);
+        }
+    }
+
+    @Override
+    public String toString() {
+        return super.toString();
     }
 
     @Override
@@ -24,7 +56,7 @@ public class Trucks extends Transport <DriverC>{
 
     @Override
     public void pitStop() {
-        System.out.println("Питстоп для грузовика" + getBrand() + " " + getModel());
+        System.out.println("Питстоп для грузовика " + getBrand() + " " + getModel());
     }
 
     @Override
@@ -45,5 +77,17 @@ public class Trucks extends Transport <DriverC>{
 
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Trucks trucks = (Trucks) o;
+        return loadCapacity == trucks.loadCapacity;
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), loadCapacity);
+    }
 }

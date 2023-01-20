@@ -1,24 +1,29 @@
-package transport;
+package Driver;
 
 import java.util.Objects;
-
+import transport.Transport;
+import transport.Competing;
 public abstract class Driver {
     private String fullName;
     private boolean driverLicense;
     private int experienceYear;
 
     public Driver(String fullName, boolean driverLicense, int experienceYear) {
-        this.fullName = fullName;
+        setFullName(fullName);
         this.driverLicense = driverLicense;
-        this.experienceYear = experienceYear;
-    }
+        setExperienceYear(experienceYear);    }
+
+
 
     public String getFullName() {
         return fullName;
     }
 
     public void setFullName(String fullName) {
-        this.fullName = fullName;
+        if (fullName == null || fullName.isEmpty()) {
+            this.fullName = "Неизвестный водитель";
+        } else {
+            this.fullName = fullName;}
     }
 
     public boolean isDriverLicense() {
@@ -34,32 +39,38 @@ public abstract class Driver {
     }
 
     public void setExperienceYear(int experienceYear) {
-        this.experienceYear = experienceYear;
+        if (experienceYear <= 0) {
+            this.experienceYear = 1;
+        } else {
+            this.experienceYear = experienceYear;
+        }
     }
+
     public abstract void startMoving();
 
     public abstract void stay();
 
     public abstract void refuel();
 
+
+    @Override
+    public String toString() {
+        return "Имя водителя: " + fullName +
+                ", наличие водительских прав - " + (driverLicense ? "имеется" : "отсутствует") +
+                ", стаж вождения - " + experienceYear + " лет";
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Driver driver = (Driver) o;
-        return driverLicense == driver.driverLicense && experienceYear == driver.experienceYear && Objects.equals(fullName, driver.fullName);
+        return driverLicense == driver.driverLicense && experienceYear
+                == driver.experienceYear && Objects.equals(fullName, driver.fullName);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(fullName, driverLicense, experienceYear);
-    }
-
-    @Override
-    public String toString() {
-        return "Водитель " +
-                  fullName +
-                ", наличие водительских прав - " + (driverLicense? "имеется":"отсутствует") +
-                ", стаж" + experienceYear;
     }
 }

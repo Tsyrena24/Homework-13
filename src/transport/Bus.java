@@ -1,13 +1,32 @@
 package transport;
 
+import Driver.DriverD;
+
 import java.util.Objects;
 
 public class Bus extends Transport <DriverD> {
+    private SeatsCapacity seatsCapacity;
 
-    public Bus(String brand, String model, double engineVolume, DriverD driver) {
-        super(brand, model, engineVolume, driver);
+    public Bus(String brand, String model, double engineVolume,  SeatsCapacity seatsCapacity) {
+        super(brand, model, engineVolume);
+        this.seatsCapacity = seatsCapacity;
     }
 
+    public SeatsCapacity getSeatsCapacity() {
+        return seatsCapacity;
+    }
+
+    public void setSeatsCapacity(SeatsCapacity seatsCapacity) {
+        this.seatsCapacity = seatsCapacity;
+    }
+    public void printType() {
+        if (seatsCapacity == null) {
+            System.out.println("Недостаточно информации");
+        } else {
+            System.out.println("Вместимость автобуса " + getBrand() + " " + getModel() + ": от " + seatsCapacity.getSeatsCapacityLowerLimit()
+                    + " до " + seatsCapacity.getSeatsCapacityUpperLimit() + " пассажирских мест");
+        }
+    }
     @Override
     public void startMoving() {
         System.out.println("Марка автобуса - " + getBrand() + " " + getModel());
@@ -46,16 +65,21 @@ public class Bus extends Transport <DriverD> {
         int maxSpeed = (int) (minTime + (maxTime - minTime) * Math.random());
         System.out.println("Максимальная скорость для автобуса: " + getBrand() + " " + getModel() + " - " + maxSpeed + " км/ч");
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Bus bus = (Bus) o;
+        return seatsCapacity == bus.seatsCapacity;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), seatsCapacity);
+    }
 }
-
-
-//    public Bus(String brand, String model, int year, String country, String color, int maxMovementSpeed, int capacityOfPassengers, boolean cargoDepartment, int doorsOfPassengers) {
-//        super(brand, model, year, country, color, maxMovementSpeed);
-
-
-//
-//        this.cargoDepartment = cargoDepartment;
-//
 
 //    }
 //
@@ -71,19 +95,7 @@ public class Bus extends Transport <DriverD> {
 //        return doorsOfPassengers;
 //    }
 
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (o == null || getClass() != o.getClass()) return false;
-//        if (!super.equals(o)) return false;
-//        Bus bus = (Bus) o;
-//        return capacityOfPassengers == bus.capacityOfPassengers && cargoDepartment == bus.cargoDepartment && doorsOfPassengers == bus.doorsOfPassengers;
-//    }
 //
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(super.hashCode(), capacityOfPassengers, cargoDepartment, doorsOfPassengers);
-//    }
 //
 //    @Override
 //    public String toString() {

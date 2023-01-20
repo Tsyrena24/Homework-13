@@ -1,18 +1,20 @@
 package transport;
 
+import Driver.Driver;
+
 import java.util.Objects;
 
 public abstract class Transport <T extends Driver> implements Competing{
     private final String brand;
     private final String model;
     private double engineVolume;
-    private T driver;
+//    private T driver;
 //    private final String country;
 //    private String color;
 //    private int maxMovementSpeed;
 
 
-    public Transport(String brand, String model, double engineVolume, T driver) {
+    public Transport(String brand, String model, double engineVolume) {
         if (brand != null && !brand.isEmpty() && !brand.isBlank()) {
             this.brand = brand;
         } else {
@@ -24,7 +26,7 @@ public abstract class Transport <T extends Driver> implements Competing{
             this.model = "default";
         }
         setEngineVolume(engineVolume);
-        setDriver(driver);
+//        setDriver(driver);
 //        if (year <= 0) {
 //            this.year = 2000;
 //        } else {
@@ -62,29 +64,30 @@ public abstract class Transport <T extends Driver> implements Competing{
             this.engineVolume = engineVolume;
         }
     }
-    public T getDriver() {
-        return driver;
-    }
-
-    public void setDriver(T driver) {
-        this.driver = driver;
-    }
+//    public T getDriver() {
+//        return driver;
+//    }
+//
+//    public void setDriver(T driver) {
+//        this.driver = driver;
+//    }
 
 
     public abstract void startMoving();
 
 
     public abstract void finishMoving();
-    public void printInfo() {
-        System.out.println("Водитель " + driver.getFullName() + "управляет автомобилем " + getBrand() + " " + getModel() + " и будет участвовать в заезде");
-    }
+
+//    public void printInfo() {
+//        System.out.println("Водитель " + driver.getFullName() + "управляет автомобилем " + getBrand() + " " + getModel() + " и будет участвовать в заезде");
+//    }
 
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Transport transport = (Transport) o;
+        Transport<?> transport = (Transport<?>) o;
         return Double.compare(transport.engineVolume, engineVolume) == 0 && Objects.equals(brand, transport.brand) && Objects.equals(model, transport.model);
     }
 
@@ -92,6 +95,7 @@ public abstract class Transport <T extends Driver> implements Competing{
     public int hashCode() {
         return Objects.hash(brand, model, engineVolume);
     }
+
     @Override
     public String toString() {
         return

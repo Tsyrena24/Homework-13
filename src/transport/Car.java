@@ -1,13 +1,37 @@
 package transport;
 
-import java.security.Key;
 
+import Driver.DriverB;
+
+import java.util.Objects;
 
 public class Car extends Transport <DriverB>  {
-    public Car(String brand, String model, double engineVolume, DriverB driver) {
-        super(brand, model, engineVolume, driver);
+    private BodyType bodyType;
+
+    public Car(String brand, String model, double engineVolume, BodyType bodyType) {
+        super(brand, model, engineVolume);
+        this.bodyType = bodyType;
     }
 
+    public BodyType getBodyType() {
+        return bodyType;
+    }
+
+    public void setBodyType(BodyType bodyType) {
+        this.bodyType = bodyType;
+    }
+    public void printType() {
+        if (bodyType == null) {
+            System.out.println("There is not enough data on car");
+        } else {
+            System.out.println(bodyType);
+        }
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + bodyType;
+    }
 
     @Override
     public void startMoving() {
@@ -44,6 +68,20 @@ public class Car extends Transport <DriverB>  {
         int maxTime = 270;
         int maxSpeed = (int) (minTime + (maxTime - minTime) * Math.random());
         System.out.println("Максимальная скорость для автомобиля: " + getBrand() + " " + getModel() + " - " + maxSpeed + " км/ч");
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Car car = (Car) o;
+        return bodyType == car.bodyType;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), bodyType);
     }
 }
 
