@@ -23,6 +23,7 @@ public class Main {
         }
 
 
+
 //        Car sportCar = new Car("Car", "200", 1.4, 2010, "желтый", "auto", true, 250);
 //        Car lada = new Car("Lada", "2012", 1.5, 2000, "зеленый", "m", true,260);
 //        System.out.println(lada);
