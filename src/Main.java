@@ -56,7 +56,7 @@ public class Main {
         System.out.println(alexey);
 //        alexey.drive(ladaXXX);
 //        alexey.startMoving();
-        System.out.println(michael);
+        System.out.println(michael) ;
 //        michael.drive(yyy);
 //        michael.refuel();
         System.out.println(alex);
