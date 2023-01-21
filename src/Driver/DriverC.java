@@ -4,8 +4,8 @@ import Driver.Driver;
 import transport.Trucks;
 
 public class DriverC <T extends Trucks> extends Driver {
-    public DriverC(String fullName, boolean driverLicense, int experienceYear) {
-        super(fullName, driverLicense, experienceYear);
+    public DriverC(String fullName, boolean driverLicense, int experienceYear, String category) {
+        super(fullName, driverLicense, experienceYear, category);
     }
     public void drive(T trucks) {
         System.out.println("Водитель: " + getFullName() + " ведет автомобиль: " + trucks.getBrand() + " " +

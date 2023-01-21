@@ -48,6 +48,13 @@ public class Car extends Transport <DriverB>  {
         System.out.println("Останавливаюсь");
         System.out.println("Остановился");
     }
+
+    @Override
+    public void passDiagnostics() {
+        System.out.println("Автомобиль " + getBrand() + " " + getModel() + "прошел диагностику успешно");
+
+    }
+
     @Override
     public void pitStop() {
         System.out.println("Питстоп для автомобиля " + getBrand() + " " + getModel());

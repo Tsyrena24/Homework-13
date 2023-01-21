@@ -43,6 +43,11 @@ public class Bus extends Transport <DriverD> {
         System.out.println("Выключаю двигатель");
     }
 
+    @Override
+    public void passDiagnostics() {
+        System.out.println("Автобусы  диагностику проходить не могут");
+    }
+
 
     @Override
     public void pitStop() {

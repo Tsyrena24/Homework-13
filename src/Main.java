@@ -50,19 +50,19 @@ public class Main {
 
         System.out.println("-----------------------------------------");
 
-        DriverB alexey = new DriverB("Алексей", true, 10);
-        DriverC michael = new DriverC("Михаил", true, 15);
-        DriverD alex = new DriverD("Александр", true, 7);
+        DriverB alexey = new DriverB("Алексей", true, 10, "");
+        DriverC michael = new DriverC("Михаил", true, 15, "f");
+        DriverD alex = new DriverD("Александр", true, 7, "d");
         System.out.println(alexey);
-        alexey.drive(ladaXXX);
-        alexey.startMoving();
+//        alexey.drive(ladaXXX);
+//        alexey.startMoving();
         System.out.println(michael);
-        michael.drive(yyy);
-        michael.refuel();
+//        michael.drive(yyy);
+//        michael.refuel();
         System.out.println(alex);
-        alex.drive(paz);
-        alex.stay();
-        System.out.println();
+//        alex.drive(paz);
+//        alex.stay();
+//        System.out.println();
 
 
 //            DriverD driverD = new DriverD("Driver cat.C №" + i, true, 5 + i);

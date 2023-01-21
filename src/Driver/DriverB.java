@@ -7,8 +7,8 @@ import transport.Transport;
 
 public class DriverB <T extends Car> extends Driver {
 
-    public DriverB(String fullName, boolean driverLicense, int experienceYear) {
-        super(fullName, driverLicense, experienceYear);
+    public DriverB(String fullName, boolean driverLicense, int experienceYear, String category) {
+        super(fullName, driverLicense, experienceYear, category);
     }
 
     public void drive(T car) {

@@ -7,13 +7,14 @@ public abstract class Driver {
     private String fullName;
     private boolean driverLicense;
     private int experienceYear;
+    String category;
 
-    public Driver(String fullName, boolean driverLicense, int experienceYear) {
+    public Driver(String fullName, boolean driverLicense, int experienceYear, String category) {
         setFullName(fullName);
         this.driverLicense = driverLicense;
-        setExperienceYear(experienceYear);    }
-
-
+        setExperienceYear(experienceYear);
+        setCategory(category);
+    }
 
     public String getFullName() {
         return fullName;
@@ -45,6 +46,30 @@ public abstract class Driver {
             this.experienceYear = experienceYear;
         }
     }
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        if (category == "B" || category == "C" || category == "D" || category == "b" || category == "c" || category == "d") {
+            this.category = category;
+        } else if (category == null || category.isEmpty() || category.isBlank()) {
+            try {
+                throw new DriversLicenceException("Необходимо указать категорию водительского удостоверения для водителя " + getFullName());
+            } catch (DriversLicenceException e) {
+                System.out.println(e.getMessage());
+                this.category = "Неверные данные";
+            }
+        } else {
+            try {
+                throw new DriversLicenceException("Неверная категория водительского удосоверения для водителя " + getFullName());
+            } catch (DriversLicenceException e) {
+                System.out.println(e.getMessage());
+                this.category = "Неверные данные";
+
+            }
+        }
+    }
 
     public abstract void startMoving();
 
@@ -57,7 +82,7 @@ public abstract class Driver {
     public String toString() {
         return "Имя водителя: " + fullName +
                 ", наличие водительских прав - " + (driverLicense ? "имеется" : "отсутствует") +
-                ", стаж вождения - " + experienceYear + " лет";
+                ", стаж вождения - " + experienceYear + " лет, категория водительских прав: " + category;
     }
 
     @Override
