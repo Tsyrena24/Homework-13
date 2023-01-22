@@ -1,125 +1,106 @@
-//import transport.Bus;
+import Driver.Driver;
 import Driver.DriverB;
 import Driver.DriverC;
 import Driver.DriverD;
+import Mechanic.Mechanic;
 import transport.*;
+import java.util.ArrayList;
+
+import static Mechanic.MechanicProfessionalSkills.*;
 
 public class Main {
-//    private static void printInfo(Transport<?> transport) {
-//        System.out.println("водитель "+transport.getDriver().getFullName()+" управляет автомобилем "+transport.getBrand()+transport.getModel()+" и будет участвовать в заезде");
-//    }
+    public static void divideToPrint() {
+        System.out.println();
+        System.out.println("-------------------------------------------------------------------------------------------");
+        System.out.println();
+    }
 
     public static void main(String[] args) {
-
-        Car ford = new Car("Ford", "12", 4.6, BodyType.BODY_TYPE_SEDAN);
-        Car bmbZ5 = new Car("BMB", "Z5", 5.2, BodyType.BODY_TYPE_CROSSOVER);
-        Car ladaXXX = new Car("Lada", "XXX", 4.1, BodyType.BODY_TYPE_STATION_WAGON);
-        System.out.println(ford);
-        System.out.println(bmbZ5);
-        System.out.println(ladaXXX);
-        System.out.println();
-        ford.pitStop();
-        bmbZ5.startMoving();
-        ladaXXX.finishMoving();
-
-        System.out.println("-------------------------------------------------------------");
-
-        Trucks gaz = new Trucks("Gaz", "AAA", 1.4, LoadCapacity.LOAD_CAPACITY_N1);
-        Trucks yyy = new Trucks("YYY", "T6", 3.5, LoadCapacity.LOAD_CAPACITY_N2);
-        System.out.println(gaz);
-        System.out.println(yyy);
-        gaz.printType();
-        yyy.printType();
-        System.out.println();
-        gaz.pitStop();
-        yyy.startMoving();
-        yyy.finishMoving();
-
-        System.out.println("------------------------------------------------------------");
-
-        Bus paz = new Bus("PAZ", "school", 3.2, SeatsCapacity.SEATS_CAPACITY_MEDIUM);
-        Bus bus = new Bus("Bus", "XL", 3.6, SeatsCapacity.SEATS_CAPACITY_EXTREMELY_LARGE);
-        System.out.println(paz);
-        System.out.println(bus);
-        paz.printType();
-        bus.printType();
-        System.out.println();
-        paz.pitStop();
-        paz.startMoving();
-        paz.finishMoving();
-
-        System.out.println("-----------------------------------------");
-
-        DriverB alexey = new DriverB("Алексей", true, 10, "");
-        DriverC michael = new DriverC("Михаил", true, 15, "f");
-        DriverD alex = new DriverD("Александр", true, 7, "d");
-        System.out.println(alexey);
-//        alexey.drive(ladaXXX);
-//        alexey.startMoving();
-        System.out.println(michael) ;
-//        michael.drive(yyy);
-//        michael.refuel();
-        System.out.println(alex);
-//        alex.drive(paz);
-//        alex.stay();
-//        System.out.println();
+        ArrayList<Mechanic> mechanics = new ArrayList<Mechanic>();
+        Mechanic ivan = new Mechanic("Иван Иванович", "ИП Багажник", MECHANIC_PROFESSIONAL_SKILLS_WORKING_WITH_BUS);
+        Mechanic alexey = new Mechanic("Алексей Иванович", "ИП Шина", MECHANIC_PROFESSIONAL_SKILLS_WORKING_WITH_BUS);
+        Mechanic zoi = new Mechanic("Зоя Ивановна", "ИП Капот", MECHANIC_PROFESSIONAL_SKILLS_WORKING_WITH_TRUCKS);
+        Mechanic katya = new Mechanic("Екатерина Ивановна", "ИП Резина", MECHANIC_PROFESSIONAL_SKILLS_WORKING_WITH_TRUCKS);
+        Mechanic sergei = new Mechanic("Сергей Иванович", "ИП Колесо", MECHANIC_PROFESSIONAL_SKILLS_WORKING_WITH_CARS);
+        Mechanic zhenya = new Mechanic("Евгений Иванович", "ИП 360", MECHANIC_PROFESSIONAL_SKILLS_WORKING_WITH_CARS);
+        Mechanic anna = new Mechanic("Анна Иванова", "ИП Руль", MECHANIC_PROFESSIONAL_SKILLS_WORKING_WITH_ALL_TRANSPORT);
+        Mechanic sofiya = new Mechanic("София Иванова", "ИП Финиш", MECHANIC_PROFESSIONAL_SKILLS_WORKING_WITH_ALL_TRANSPORT);
+        mechanics.add(alexey);
+        mechanics.add(ivan);
+        mechanics.add(zoi);
+        mechanics.add(katya);
+        mechanics.add(sergei);
+        mechanics.add(zhenya);
+        mechanics.add(anna);
+        mechanics.add(sofiya);
+//        System.out.println(mechanics);
+        mechanics.forEach(System.out::println);
 
 
-//            DriverD driverD = new DriverD("Driver cat.C №" + i, true, 5 + i);
-//            Bus bus = new Bus("Bus brand №" + i, " model №" + i, 4.7, driverD);
-//
-//            DriverC driverC = new DriverC("Driver cat.D №" + i, true, 5 + i);
-//            Trucks truck = new Trucks("Truck brand №" + i, " model №" + i, 4.7, driverC);
-
-//            printInfo(car);
-//            printInfo(bus);
-//            printInfo(truck);
-
-
-
-    }
-
-
-
-//        Car sportCar = new Car("Car", "200", 1.4, 2010, "желтый", "auto", true, 250);
-//        Car lada = new Car("Lada", "2012", 1.5, 2000, "зеленый", "m", true,260);
-//        System.out.println(lada);
-//        System.out.println(sportCar);
-//        sportCar.startMoving();
-//        sportCar.finishMoving();
-//        sportCar.pitStop(10);
-//        lada.bestLapTime(13.6);
-//        lada.maxSpeedParticipant();
-//        System.out.println();
-//
-//        Bus school = new Bus("Gaz", "2020", 1.6, "school", 40, false, 2, 180);
-//        Bus gaz = new Bus("Газ", "230", 2.4, "городской", 40, false, 2, 160);
-//        System.out.println(school);
-//        gaz.startMoving();
-//        gaz.finishMoving();
-//        school.pitStop(15.50);
-//        gaz.bestLapTime(10);
-//        school.maxSpeedParticipant();
-//        System.out.println();
-//
-//        Trucks utd = new Trucks("UTD", "10-3", 2.6, "зерновой", 10, true, 160);
-//        System.out.println(utd);
-//        utd.startMoving();
-//        utd.finishMoving();
-//        utd.pitStop(13.21);
-//        utd.bestLapTime(9.3);
-//        utd.maxSpeedParticipant();
+        divideToPrint();
+        ArrayList<Driver> drivers = new ArrayList<Driver>();
+        DriverB<Car> michael = new DriverB<>("Михаил Иванович", true, 10, "B");
+        DriverB<Car> max = new DriverB<>("Максим Иванович", true, 10, "B");
+        DriverC<Trucks> alex = new DriverC<>("Александр Иванович", true, 15, "C");
+        DriverC<Trucks> viktor = new DriverC<>("Виктор Иванович", true, 15, "C");
+        DriverD<Bus> svetlana = new DriverD<>("Светлана Иванова", true, 7, "D");
+        DriverD<Bus> olya = new DriverD<>("Ольга Иванова", true, 7, "D");
+        drivers.add(michael);
+        drivers.add(max);
+        drivers.add(alex);
+        drivers.add(viktor);
+        drivers.add(svetlana);
+        drivers.add(olya);
+//        System.out.println(drivers);
+        drivers.forEach(System.out::println);
 
 
-//
-//        System.out.println(sportCar);;
-//        System.out.println(gaz);
-//        System.out.println();
-//
-//
-//        System.out.println();
-//
-//        gaz.startMoving();
+        divideToPrint();
+        ArrayList<Transport> transports = new ArrayList<Transport>();
+        Car lada = new Car("Lada", "CCC", 12.4, BodyType.BODY_TYPE_STATION_WAGON, max, drivers, 2, mechanics);
+        Car fordZ34 = new Car("Ford", "Z34", 4.6, BodyType.BODY_TYPE_STATION_WAGON, michael, drivers, 2, mechanics);
+
+        Bus aaaBus = new Bus("AAA", "111", 10, SeatsCapacity.SEATS_CAPACITY_MEDIUM, svetlana, drivers, 2, mechanics);
+        Bus bbbBus = new Bus("bbb", "222", 12.3, SeatsCapacity.SEATS_CAPACITY_LARGE, olya, drivers, 2, mechanics);
+
+        Trucks kamaz = new Trucks("Kamaz", "XXX", 15.7, LoadCapacity.LOAD_CAPACITY_N1, alex, drivers, 2, mechanics);
+        Trucks gaz = new Trucks("Gazel", "YYY", 16, LoadCapacity.LOAD_CAPACITY_N2, viktor, drivers, 2, mechanics);
+        transports.add(lada);
+        transports.add(fordZ34);
+        transports.add(aaaBus);
+        transports.add(bbbBus);
+        transports.add(kamaz);
+        transports.add(gaz);
+        transports.forEach(System.out::println);
+
+        lada.pitStop();
+        fordZ34.startMoving();
+        kamaz.finishMoving();
+
+        divideToPrint();
+        ArrayList<Transport> listOfCars = new ArrayList<>();
+        ServiceStation serviceQueue = new ServiceStation(listOfCars);
+        serviceQueue.addCarToQueue(lada);
+        serviceQueue.addCarToQueue(fordZ34);
+        serviceQueue.addCarToQueue(kamaz);
+        serviceQueue.addCarToQueue(gaz);
+        System.out.println("Порядок очереди авто со всеми характеристиками: " + serviceQueue.getTransportDeque());
+        serviceQueue.passTheVehicleCheckTransport();
+        System.out.println("Порядок очереди авто со всеми характеристиками: " + serviceQueue.getTransportDeque());
+        serviceQueue.passTheVehicleCheckTransport();
+        System.out.println("Порядок очереди авто со всеми характеристиками: " + serviceQueue.getTransportDeque());
+
+        serviceQueue.addCarToQueue(lada);
+        System.out.println("Порядок очереди авто со всеми характеристиками: " + serviceQueue.getTransportDeque());
+
+        divideToPrint();
+        lada.getInformationTransportMechanicDriver();
+        fordZ34.getInformationTransportMechanicDriver();
+        aaaBus.getInformationTransportMechanicDriver();
+        bbbBus.getInformationTransportMechanicDriver();
+        kamaz.getInformationTransportMechanicDriver();
+        gaz.getInformationTransportMechanicDriver();
 
 
     }
+}

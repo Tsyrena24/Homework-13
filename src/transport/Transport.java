@@ -1,20 +1,22 @@
 package transport;
 
 import Driver.Driver;
+import Mechanic.Mechanic;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
-public abstract class Transport <T extends Driver> implements Competing{
+public abstract class Transport<T extends Driver> implements Competing {
     private final String brand;
     private final String model;
     private double engineVolume;
-//    private T driver;
-//    private final String country;
-//    private String color;
-//    private int maxMovementSpeed;
+    protected ArrayList<Driver> drivers;
+    protected ArrayList<Mechanic> mechanics;
+    private int numberOfMechanics;
+    private Driver driver;
 
+    public Transport(String brand, String model, double engineVolume, Driver driver) {
 
-    public Transport(String brand, String model, double engineVolume) {
         if (brand != null && !brand.isEmpty() && !brand.isBlank()) {
             this.brand = brand;
         } else {
@@ -26,28 +28,32 @@ public abstract class Transport <T extends Driver> implements Competing{
             this.model = "default";
         }
         setEngineVolume(engineVolume);
-//        setDriver(driver);
-//        if (year <= 0) {
-//            this.year = 2000;
-//        } else {
-//            this.year = year;
-//        }
-//
-//        if (country != null && !country.isEmpty() && !country.isBlank()) {
-//            this.country = country;
-//        } else {
-//            this.country = "default";
-//        }
+        this.driver = driver;
+    }
 
-//        setColor(color);
-//        setMaxMovementSpeed(maxMovementSpeed);
+    public Transport(String brand, String model, double engineVolume, Driver driver, ArrayList <Driver> drivers,
+                     int numberOfMechanics, ArrayList<Mechanic> mechanics) {
+        if (brand != null && !brand.isEmpty() && !brand.isBlank()) {
+            this.brand = brand;
+        } else {
+            this.brand = "default";
+        }
+        if (model != null && !model.isEmpty() && !model.isBlank()) {
+            this.model = model;
+        } else {
+            this.model = "default";
+        }
+        setEngineVolume(engineVolume);
+        this.driver = driver;
+        this.drivers = drivers;
+        setMechanics(mechanics);
+        setNumberOfMechanics(numberOfMechanics);
     }
 
 
     public final String getBrand() {
         return brand;
     }
-
 
     public final String getModel() {
         return model;
@@ -64,14 +70,41 @@ public abstract class Transport <T extends Driver> implements Competing{
             this.engineVolume = engineVolume;
         }
     }
-//    public T getDriver() {
-//        return driver;
-//    }
-//
-//    public void setDriver(T driver) {
-//        this.driver = driver;
-//    }
 
+    public Driver getDriver() {
+        return driver;
+    }
+
+    public void setDriver(Driver driver) {
+        if (driver != null) {
+            this.driver = driver;
+        }
+    }
+
+    public void setNumberOfMechanics(int numberOfMechanics) {
+        if (numberOfMechanics <= 0) {
+            this.numberOfMechanics = 1;
+        } else if (numberOfMechanics > 3) {
+            throw new IndexOutOfBoundsException("Механиков должно быть от 1 до 3 человек.");
+        } else {
+            this.numberOfMechanics = numberOfMechanics;
+        }
+    }
+    public ArrayList<Driver> getDrivers() {
+        return drivers;
+    }
+
+    public void setDrivers(ArrayList<Driver> drivers) {
+        this.drivers = drivers;
+    }
+
+    public ArrayList<Mechanic> getMechanics() {
+        return mechanics;
+    }
+
+    public void setMechanics(ArrayList<Mechanic> mechanics) {
+        this.mechanics = mechanics;
+    }
 
     public abstract void startMoving();
 
@@ -79,9 +112,10 @@ public abstract class Transport <T extends Driver> implements Competing{
     public abstract void finishMoving();
 
     public abstract void passDiagnostics();
-//    public void printInfo() {
-//        System.out.println("Водитель " + driver.getFullName() + "управляет автомобилем " + getBrand() + " " + getModel() + " и будет участвовать в заезде");
-//    }
+
+    public abstract void addMechanicInList(Mechanic mechanic);
+
+    public abstract void getInformationTransportMechanicDriver();
 
 
     @Override
@@ -89,58 +123,21 @@ public abstract class Transport <T extends Driver> implements Competing{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Transport<?> transport = (Transport<?>) o;
-        return Double.compare(transport.engineVolume, engineVolume) == 0 && Objects.equals(brand, transport.brand) && Objects.equals(model, transport.model);
+        return Double.compare(transport.engineVolume, engineVolume) == 0 && numberOfMechanics == transport.numberOfMechanics && Objects.equals(brand, transport.brand) && Objects.equals(model, transport.model) && Objects.equals(drivers, transport.drivers) && Objects.equals(mechanics, transport.mechanics) && Objects.equals(driver, transport.driver);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(brand, model, engineVolume);
+        return Objects.hash(brand, model, engineVolume, drivers, mechanics, numberOfMechanics, driver);
     }
 
     @Override
     public String toString() {
         return
-                "Марка - " + brand +
-                ", модель - " + model +
-                ", обьем двигателя - " + engineVolume;
+                "Марка - " + brand + ", модель - " + model + ", обьем двигателя - " + engineVolume + " л.";
     }
+
 }
 
-
-
-
-//    public final int getYear() {
-//        return year;
-//    }
-//
-//
-//    public final String getCountry() {
-//        return country;
-//    }
-//
-//
-//    public String getColor() {
-//        return color;
-//    }
-//
-//    public void setColor(String color) {
-//        if (color != null && !color.isEmpty() && !color.isBlank()) {
-//            this.color = color;
-//        } else {
-//            this.color = "белый";
-//        }
-//    }
-//
-//    public int getMaxMovementSpeed() {
-//        return maxMovementSpeed;
-//    }
-//
-//    public void setMaxMovementSpeed(int maxMovementSpeed) {
-//        if (maxMovementSpeed <= 0 || maxMovementSpeed >= 350) {
-//            this.maxMovementSpeed = 200;
-//        } else {
-//            this.maxMovementSpeed = maxMovementSpeed;
-//        }
-//    }
 
 

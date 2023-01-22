@@ -1,14 +1,24 @@
 package transport;
 
+import Driver.Driver;
 import Driver.DriverD;
+import Mechanic.Mechanic;
 
+import java.util.ArrayList;
 import java.util.Objects;
+
+import Mechanic.MechanicProfessionalSkills;
 
 public class Bus extends Transport <DriverD> {
     private SeatsCapacity seatsCapacity;
 
-    public Bus(String brand, String model, double engineVolume,  SeatsCapacity seatsCapacity) {
-        super(brand, model, engineVolume);
+    public Bus(String brand, String model, double engineVolume, SeatsCapacity seatsCapacity, DriverD driver) {
+        super(brand, model, engineVolume, driver);
+        this.seatsCapacity = seatsCapacity;
+    }
+
+    public Bus(String brand, String model, double engineVolume, SeatsCapacity seatsCapacity, Driver driver, ArrayList<Driver> drivers, int numberOfMechanics, ArrayList<Mechanic> mechanics) {
+        super(brand, model, engineVolume, driver, drivers, numberOfMechanics, mechanics);
         this.seatsCapacity = seatsCapacity;
     }
 
@@ -21,7 +31,7 @@ public class Bus extends Transport <DriverD> {
     }
     public void printType() {
         if (seatsCapacity == null) {
-            System.out.println("Недостаточно информации");
+            System.out.println("Недостаточно информации.");
         } else {
             System.out.println("Вместимость автобуса " + getBrand() + " " + getModel() + ": от " + seatsCapacity.getSeatsCapacityLowerLimit()
                     + " до " + seatsCapacity.getSeatsCapacityUpperLimit() + " пассажирских мест");
@@ -45,8 +55,51 @@ public class Bus extends Transport <DriverD> {
 
     @Override
     public void passDiagnostics() {
-        System.out.println("Автобусы  диагностику проходить не могут");
+        System.out.println("Автобусы  диагностику проходить не могут.");
     }
+
+    @Override
+    public void addMechanicInList(Mechanic mechanic) {
+
+    }
+
+    @Override
+    public void getInformationTransportMechanicDriver() {
+        if (mechanics != null && drivers != null && !mechanics.isEmpty() && !drivers.isEmpty()) {
+            for (Mechanic mechanic : mechanics) {
+                if (mechanic.getProfessionalSkills() == MechanicProfessionalSkills.MECHANIC_PROFESSIONAL_SKILLS_WORKING_WITH_BUS||
+                        mechanic.getProfessionalSkills() == MechanicProfessionalSkills.MECHANIC_PROFESSIONAL_SKILLS_WORKING_WITH_ALL_TRANSPORT
+                                && mechanics.size() < 3) {
+                    System.out.println("У автобуса " + getBrand() + " " + getModel() + ", обслуживает механик " + mechanic.getFullName() + ".") ;
+                }
+            }
+            for (Driver driver : drivers) {
+                if (Objects.equals(getDriver().getFullName(), driver.getFullName())) {
+                    System.out.println("У автобуса " + getBrand() + " " + getModel() + ", водитель " + driver.getFullName() + ".");
+                }
+            }
+        } else if (mechanics == null && (drivers != null || !drivers.isEmpty())) {
+            for (Driver driver : drivers) {
+                if (Objects.equals(getDriver().getFullName(), getDriver().getFullName())) {
+                    System.out.println("У автобуса " + getBrand() + " " + getModel() + ", нет механика, водитель " + driver.getFullName() + ".");
+                }
+            }
+        } else if ((mechanics != null || !mechanics.isEmpty()) && drivers == null) {
+            for (Mechanic mechanic : mechanics) {
+                if (mechanic.getProfessionalSkills() == MechanicProfessionalSkills.MECHANIC_PROFESSIONAL_SKILLS_WORKING_WITH_CARS ||
+                        mechanic.getProfessionalSkills() == MechanicProfessionalSkills.MECHANIC_PROFESSIONAL_SKILLS_WORKING_WITH_ALL_TRANSPORT
+                                && mechanics.size() < 3) {
+                    System.out.println("У автобуса " + getBrand() + " " + getModel() + ", нет водителя, обслуживает механик " + mechanic.getFullName() + ".");
+                }
+            }
+
+        } else
+            System.out.println("У автобуса " + getBrand() + " " + getModel() + ", нет механика и водителя.");
+
+
+    }
+
+
 
 
     @Override
@@ -86,28 +139,4 @@ public class Bus extends Transport <DriverD> {
     }
 }
 
-//    }
-//
-//    public int getCapacityOfPassengers() {
-//        return capacityOfPassengers;
-//    }
-//
-//    public boolean isCargoDepartment() {
-//        return cargoDepartment;
-//    }
-//
-//    public int getDoorsOfPassengers() {
-//        return doorsOfPassengers;
-//    }
-
-//
-//
-//    @Override
-//    public String toString() {
-//        return super.toString() +
-//                ", количество пассажирских мест - " + capacityOfPassengers +
-//                ", наличие багажного отсека - " + (cargoDepartment? "имеется": "нет в наличии") +
-//                ", количество дверей - " + doorsOfPassengers;
-//    }
-//}
 

@@ -7,7 +7,7 @@ public abstract class Driver {
     private String fullName;
     private boolean driverLicense;
     private int experienceYear;
-    String category;
+    private String category;
 
     public Driver(String fullName, boolean driverLicense, int experienceYear, String category) {
         setFullName(fullName);
@@ -24,7 +24,8 @@ public abstract class Driver {
         if (fullName == null || fullName.isEmpty()) {
             this.fullName = "Неизвестный водитель";
         } else {
-            this.fullName = fullName;}
+            this.fullName = fullName;
+        }
     }
 
     public boolean isDriverLicense() {
@@ -46,6 +47,7 @@ public abstract class Driver {
             this.experienceYear = experienceYear;
         }
     }
+
     public String getCategory() {
         return category;
     }
@@ -90,12 +92,11 @@ public abstract class Driver {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Driver driver = (Driver) o;
-        return driverLicense == driver.driverLicense && experienceYear
-                == driver.experienceYear && Objects.equals(fullName, driver.fullName);
+        return driverLicense == driver.driverLicense && experienceYear == driver.experienceYear && Objects.equals(fullName, driver.fullName) && Objects.equals(category, driver.category);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(fullName, driverLicense, experienceYear);
+        return Objects.hash(fullName, driverLicense, experienceYear, category);
     }
 }

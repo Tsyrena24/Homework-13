@@ -7,7 +7,7 @@ public class DriverD <T extends Bus> extends Driver {
         super(fullName, driverLicense, experienceYear, category);
     }
     public void drive(T bus) {
-        System.out.println("Водитель: " + getFullName() + " ведет автомобиль: " + bus.getBrand() + " " +
+        System.out.println("Водитель: " + getFullName() + " с водительскими правами категории D, ведет автомобиль: " + bus.getBrand() + " " +
                 bus.getModel() + " и примет участие в гонке");
     }
     @Override

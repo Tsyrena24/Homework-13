@@ -12,7 +12,7 @@ public class DriverB <T extends Car> extends Driver {
     }
 
     public void drive(T car) {
-        System.out.println("Водитель: " + getFullName() + " ведет автомобиль: " + car.getBrand() + " " +
+        System.out.println("Водитель: " + getFullName() + " с водительскими правами категории В, ведет автомобиль: " + car.getBrand() + " " +
                 car.getModel() + " и примет участие в гонке");
     }
     @Override
@@ -32,4 +32,8 @@ public class DriverB <T extends Car> extends Driver {
 
     }
 
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }

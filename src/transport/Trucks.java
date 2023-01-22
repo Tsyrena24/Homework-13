@@ -1,14 +1,26 @@
 package transport;
 
+import Driver.Driver;
 import Driver.DriverC;
+import Mechanic.Mechanic;
 
+import java.util.ArrayList;
 import java.util.Objects;
+
+import Mechanic.MechanicProfessionalSkills;
 
 public class Trucks extends Transport <DriverC>{
     private LoadCapacity loadCapacity;
 
-    public Trucks(String brand, String model, double engineVolume, LoadCapacity loadCapacity ) {
-        super(brand, model, engineVolume);
+    public Trucks(String brand, String model, double engineVolume, LoadCapacity loadCapacity, DriverC <Trucks> driver) {
+        super(brand, model, engineVolume, driver);
+        this.loadCapacity = loadCapacity;
+    }
+
+    public Trucks(String brand, String model, double engineVolume,  LoadCapacity loadCapacity, DriverC<Trucks> driver, ArrayList<Driver> drivers,
+                  int numberOfMechanics, ArrayList<Mechanic> mechanics) {
+
+        super(brand, model, engineVolume, driver, drivers, numberOfMechanics, mechanics);
         this.loadCapacity = loadCapacity;
     }
 
@@ -56,7 +68,48 @@ public class Trucks extends Transport <DriverC>{
 
     @Override
     public void passDiagnostics() {
-        System.out.println("Грузовик " + getBrand() + " " + getModel() + "прошел диагностику успешно");
+        System.out.println("Грузовик " + getBrand() + " " + getModel() + " прошел диагностику успешно");
+    }
+
+    @Override
+    public void getInformationTransportMechanicDriver() {
+        if (mechanics != null && drivers != null && !mechanics.isEmpty() && !drivers.isEmpty()) {
+            for (Mechanic mechanic : mechanics) {
+                if (mechanic.getProfessionalSkills() == MechanicProfessionalSkills.MECHANIC_PROFESSIONAL_SKILLS_WORKING_WITH_BUS||
+                        mechanic.getProfessionalSkills() == MechanicProfessionalSkills.MECHANIC_PROFESSIONAL_SKILLS_WORKING_WITH_ALL_TRANSPORT
+                                && mechanics.size() < 3) {
+                    System.out.println("У грузовика " + getBrand() + " " + getModel() + ", обслуживает механик " + mechanic.getFullName() + ".");
+                }
+            }
+            for (Driver driver : drivers) {
+                if (Objects.equals(getDriver().getFullName(), driver.getFullName())) {
+                    System.out.println("У грузовика " + getBrand() + " " + getModel() + ", водитель " + driver.getFullName() + ".");
+                }
+            }
+        } else if (mechanics == null && (drivers != null || !drivers.isEmpty())) {
+            for (Driver driver : drivers) {
+                if (Objects.equals(getDriver().getFullName(), getDriver().getFullName())) {
+                    System.out.println("У грузовика " + getBrand() + " " + getModel() + ", нет механика, водитель " + driver.getFullName() + ".");
+                }
+            }
+        } else if ((mechanics != null || !mechanics.isEmpty()) && drivers == null) {
+            for (Mechanic mechanic : mechanics) {
+                if (mechanic.getProfessionalSkills() == MechanicProfessionalSkills.MECHANIC_PROFESSIONAL_SKILLS_WORKING_WITH_CARS ||
+                        mechanic.getProfessionalSkills() == MechanicProfessionalSkills.MECHANIC_PROFESSIONAL_SKILLS_WORKING_WITH_ALL_TRANSPORT
+                                && mechanics.size() < 3) {
+                    System.out.println("У грузовика " + getBrand() + " " + getModel() + ", нет водителя, обслуживает механик " + mechanic.getFullName() + ".");
+                }
+            }
+
+        } else
+            System.out.println("У автомобиля " + getBrand() + " " + getModel() + ", нет механика и водителя.");
+
+    }
+
+
+    @Override
+    public void addMechanicInList(Mechanic mechanic) {
+
     }
 
     @Override

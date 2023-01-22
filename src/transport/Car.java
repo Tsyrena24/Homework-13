@@ -1,17 +1,25 @@
 package transport;
-
-
+import Driver.Driver;
 import Driver.DriverB;
-
+import Mechanic.Mechanic;
+import java.util.ArrayList;
 import java.util.Objects;
 
+import Mechanic.MechanicProfessionalSkills;
 public class Car extends Transport <DriverB>  {
     private BodyType bodyType;
 
-    public Car(String brand, String model, double engineVolume, BodyType bodyType) {
-        super(brand, model, engineVolume);
+    public Car(String brand, String model, double engineVolume, BodyType bodyType, DriverB <Car> driver) {
+        super(brand, model, engineVolume, driver);
         this.bodyType = bodyType;
     }
+
+    public Car(String brand, String model, double engineVolume,  BodyType bodyType, DriverB <Car> driver, ArrayList<Driver> drivers,
+               int numberOfMechanics, ArrayList<Mechanic> mechanics) {
+        super(brand, model, engineVolume, driver, drivers, numberOfMechanics, mechanics);
+        this.bodyType = bodyType;
+    }
+
 
     public BodyType getBodyType() {
         return bodyType;
@@ -27,6 +35,44 @@ public class Car extends Transport <DriverB>  {
             System.out.println(bodyType);
         }
     }
+
+    @Override
+    public void addMechanicInList(Mechanic mechanic) {
+
+    }
+    @Override
+    public void getInformationTransportMechanicDriver() {
+        if (mechanics != null && drivers != null && !mechanics.isEmpty() && !drivers.isEmpty()) {
+            for (Mechanic mechanic : mechanics) {
+                if (mechanic.getProfessionalSkills() == MechanicProfessionalSkills.MECHANIC_PROFESSIONAL_SKILLS_WORKING_WITH_CARS ||
+                        mechanic.getProfessionalSkills() == MechanicProfessionalSkills.MECHANIC_PROFESSIONAL_SKILLS_WORKING_WITH_ALL_TRANSPORT
+                                && mechanics.size() < 3) {
+                    System.out.println("У автомобиля " + getBrand() + " " + getModel() + ", обслуживает механик " + mechanic.getFullName() + ".");
+                }
+            }
+            for (Driver driver : drivers) {
+                if (Objects.equals(getDriver().getFullName(), driver.getFullName())) {
+                    System.out.println("У автомобиля " + getBrand() + " " + getModel() + ", водитель " + driver.getFullName() + ".");
+                }
+            }
+        } else if (mechanics == null && (drivers != null || !drivers.isEmpty())) {
+            for (Driver driver : drivers) {
+                if (Objects.equals(getDriver().getFullName(), getDriver().getFullName())) {
+                    System.out.println("У автомобиля " + getBrand() + " " + getModel() + ", нет механика, водитель " + driver.getFullName() + ".");
+                }
+            }
+        } else if ((mechanics != null || !mechanics.isEmpty()) && drivers == null) {
+            for (Mechanic mechanic : mechanics) {
+                if (mechanic.getProfessionalSkills() == MechanicProfessionalSkills.MECHANIC_PROFESSIONAL_SKILLS_WORKING_WITH_CARS ||
+                        mechanic.getProfessionalSkills() == MechanicProfessionalSkills.MECHANIC_PROFESSIONAL_SKILLS_WORKING_WITH_ALL_TRANSPORT
+                                && mechanics.size() < 3) {
+                    System.out.println("У автомобиля " + getBrand() + " " + getModel() + ", нет водителя, обслуживает механик " + mechanic.getFullName() + ".");
+                }
+            }
+
+        } else
+            System.out.println("У автомобиля " + getBrand() + " " + getModel() + ", нет механика и водителя.");
+        }
 
     @Override
     public String toString() {
@@ -51,10 +97,9 @@ public class Car extends Transport <DriverB>  {
 
     @Override
     public void passDiagnostics() {
-        System.out.println("Автомобиль " + getBrand() + " " + getModel() + "прошел диагностику успешно");
+        System.out.println("Автомобиль " + getBrand() + " " + getModel() + " прошел диагностику успешно");
 
     }
-
     @Override
     public void pitStop() {
         System.out.println("Питстоп для автомобиля " + getBrand() + " " + getModel());
@@ -91,142 +136,3 @@ public class Car extends Transport <DriverB>  {
         return Objects.hash(super.hashCode(), bodyType);
     }
 }
-
-
-
-
-
-//    public static class Key {
-//        private final boolean remoteStartEngine;
-//        private final boolean keylessAccess;
-//
-//        public Key(boolean remoteStartEngine, boolean keylessAccess) {
-//            this.remoteStartEngine = remoteStartEngine;
-//            this.keylessAccess = keylessAccess;
-//
-//        }
-//
-//        public boolean isRemoteStartEngine() {
-//            return remoteStartEngine;
-//        }
-//
-//        public boolean isKeylessAccess() {
-//            return keylessAccess;
-//        }
-//
-//        @Override
-//        public String toString() {
-//            return (isRemoteStartEngine()? "удаленный запуск двигателя":"без удаленного запуск двигателя") + ", "+
-//             (isKeylessAccess()? "безключевой доступ ":"безключевой запуск отсутствует");
-//        }
-//    }
-
-//    private double engineVolume;
-//    private String gear;
-//    private final String bodyType;
-//    private String registrationNumber;
-//    private final int numberOfSeats;
-//    private boolean winterTypes;
-//    private Key key;
-
-//    public Car(String brand, String model, double engineVolume, String color, int year, String country, String gear, String bodyType, String registrationNumber, int numberOfSeats, boolean winterTypes, Key key, int maxMovementSpeed) {
-//            super(brand, model, year, country, color, maxMovementSpeed);
-//
-//        setEngineVolume(engineVolume);
-//
-//        setColor(color);
-//
-//        setGear(gear);
-//
-//        if (bodyType != null && !bodyType.isEmpty() && !bodyType.isBlank()) {
-//            this.bodyType = bodyType;
-//        } else {
-//            this.bodyType = "Седан";
-//        }
-//
-//        setRegistrationNumber(registrationNumber);
-//
-//        if (numberOfSeats < 2 || numberOfSeats > 9) {
-//            numberOfSeats = 5;
-//            throw new IndexOutOfBoundsException("Количество мест должно быть от 2 до 9, включая водителя");
-//        } else {
-//            this.numberOfSeats = numberOfSeats;
-//        }
-//        this.winterTypes = winterTypes;
-//        setKey(key);
-
-
-
-//    public double getEngineVolume() {
-//        return engineVolume;
-//    }
-//
-//    public void setEngineVolume(double engineVolume) {
-//        if (engineVolume <= 0) {
-//            this.engineVolume = 1.5;
-//        } else {
-//            this.engineVolume = engineVolume;
-//        }
-//    }
-//
-
-//    }
-//
-//    public final String getBodyType() {
-//        return bodyType;
-//    }
-//
-//    public String getRegistrationNumber() {
-//        return registrationNumber;
-//    }
-//
-//    public final void setRegistrationNumber(String registrationNumber) {
-//        if (registrationNumber != null && !registrationNumber.isEmpty()) {
-//            this.registrationNumber = registrationNumber;
-//        } else {
-//            this.registrationNumber = "x000xx000";
-//        }
-//    }
-//
-//    public final int getNumberOfSeats() {
-//        return numberOfSeats;
-//    }
-//
-//    public final boolean isWinterTypes() {
-//        return winterTypes;
-//    }
-//
-//    public void setWinterTypes(boolean winterTypes) {
-//        this.winterTypes = winterTypes;
-//    }
-//    public final Key getKey() {
-//        return key;
-//    }
-//
-//    public void setKey(Key key) {
-//        if (key == null) {
-//            key = new Key(false, false);
-//        }
-//        this.key = key;
-//    }
-//
-//    public void changeTypes(int month) {
-//        if (winterTypes == false) {
-//            if (month == 1 || month == 2 || month == 3 || month == 11 || month == 12) {
-//                this.winterTypes = !this.winterTypes;
-//                System.out.println("Время менять шины на зимние!");
-//                winterTypes = true;
-//            } else {
-//                System.out.println("Пока можно не менять летние шины");
-//            }
-//        } else if (month == 4 || month == 5 || month == 6 || month == 7 || month == 8 || month == 9 || month == 10) {
-//            this.winterTypes = !this.winterTypes;
-//            System.out.println("Время менять шины на летние!");
-//            winterTypes = false;
-//        } else {
-//            System.out.println("Пока можно не менять зимние шины");
-//        }
-//
-//    }
-
-
