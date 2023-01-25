@@ -5,6 +5,9 @@ import Driver.DriverD;
 import Mechanic.Mechanic;
 import transport.*;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import static Mechanic.MechanicProfessionalSkills.*;
 
@@ -102,5 +105,31 @@ public class Main {
         gaz.getInformationTransportMechanicDriver();
 
 
+        divideToPrint();  // ручная вставка ключей
+        Map<Transport, Mechanic> transportMechanicMap = new HashMap<>();
+        transportMechanicMap.put(lada, sergei);
+        transportMechanicMap.put(aaaBus, ivan);
+        transportMechanicMap.put(kamaz, zoi);
+        transportMechanicMap.put(gaz, anna);
+        System.out.println(transportMechanicMap);
+        printMap(transportMechanicMap);
+
+
+        divideToPrint(); // можно через цикл
+        Map<Transport, ArrayList<Mechanic>> transportMechanicMap1 = new HashMap<>();
+        for (Transport transport : transports) {
+            transportMechanicMap1.put(transport, transport.getMechanics());
+        }
+        for (Map.Entry<Transport, ArrayList<Mechanic>> map1 : transportMechanicMap1.entrySet()) {
+            System.out.println(map1.getKey() + " " + map1.getValue());
+        }
+
+
     }
+    public static void printMap(Map <Transport, Mechanic> map) {
+        for (Map.Entry<Transport, Mechanic> map1 : map.entrySet()) {
+            System.out.println(map1.getKey() + " " + map1.getValue());
+        }
+    }
+
 }
