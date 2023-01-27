@@ -4,9 +4,10 @@ import Driver.Driver;
 import Mechanic.Mechanic;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
-public abstract class Transport<T extends Driver> implements Competing {
+public abstract class Transport <T extends Driver> implements Competing {
     private final String brand;
     private final String model;
     private double engineVolume;
@@ -14,6 +15,7 @@ public abstract class Transport<T extends Driver> implements Competing {
     protected ArrayList<Mechanic> mechanics;
     private int numberOfMechanics;
     private Driver driver;
+    private List<Class<? extends Transport>> carType;
 
     public Transport(String brand, String model, double engineVolume, Driver driver) {
 

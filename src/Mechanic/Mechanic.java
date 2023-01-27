@@ -2,10 +2,14 @@ package Mechanic;
 
 import transport.Transport;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Mechanic{
     private String fullName;
     private String mechanicsСompany;
     private final MechanicProfessionalSkills professionalSkills;
+    private  List <Class <? extends Transport<?>>> carType = new ArrayList<>();
 
 
     public Mechanic(String fullName, String mechanicsСompany, MechanicProfessionalSkills professionalSkills) {
@@ -13,6 +17,10 @@ public class Mechanic{
         setMechanicsСompany(mechanicsСompany);
         this.professionalSkills = professionalSkills;
 
+    }
+
+    public List<Class<? extends Transport<?>>> getCarType() {
+        return carType;
     }
 
     public MechanicProfessionalSkills getProfessionalSkills() {
@@ -31,6 +39,7 @@ public class Mechanic{
         }
     }
 
+
     public String getMechanicsСompany() {
         return mechanicsСompany;
     }
@@ -43,20 +52,30 @@ public class Mechanic{
         }
     }
 
-
-
-
-
-    public void carryOutMaintenance(Transport transport) {
-        System.out.println("Механик " + getFullName() + " проводит техобслуживание транспорта: "
-                + professionalSkills + ", " + transport.getBrand() +" "+ transport.getModel());
+    public void addCarType(Class<? extends Transport<?>> carType) {
+        this.carType.add(carType);
     }
 
-    public void repairTheCar(Transport transport) {
-        System.out.println(getFullName()+" чинит транспорт: " +
-                 professionalSkills + ", " + transport.getBrand() +" "+ transport.getModel());
-
+    public void carryOutMaintenance(Transport<?> transport) {
+        if (this.carType.contains(transport.getClass())) {
+            System.out.println("Механик " + getFullName() + " проводит техобслуживание транспорта: "
+                    + professionalSkills + ", " + transport.getClass().getSimpleName() +" "+ transport.getBrand()
+                    + " " + transport.getModel());
+        } else {
+            System.out.format("Механик %s не умеет работать с %s %n",
+                    getFullName(),  transport.getClass().getSimpleName());
+        }
     }
+
+    public void repairTheCar(Transport<?> transport) {
+        if (this.carType.contains(transport.getClass())) {
+            System.out.println("Механик " + getFullName() + " чинит "
+                    + professionalSkills + ", " + transport.getClass().getSimpleName() +" "+ transport.getBrand()
+                    + " " + transport.getModel());
+        } else {
+            System.out.format("Механик %s не умеет работать с %s %n",
+                    getFullName(),  transport.getClass().getSimpleName());
+        }}
 
     @Override
     public String toString() {
